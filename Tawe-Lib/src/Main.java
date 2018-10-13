@@ -1,7 +1,15 @@
+import Backend.API;
+import Frontend.Login_Page;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
 public class Main {
 
     public static void main(String[] args){
-        // Testing git
-        System.out.println("Test");
+
+        API.init(args);
+        Login_Page.create();
+
     }
 }
