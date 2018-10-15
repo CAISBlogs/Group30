@@ -1,7 +1,6 @@
 package Frontend;
 
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,22 +12,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.FileInputStream;
-import java.net.URL;
 
-public class Login_Page extends Application {
+public class Login_Page {
 
     private int WIDTH = 450;
     private int HEIGHT = 235;
+
+
+    private Scene scene;
 
     private ImageView taweLibIcon;
     private Label welcomeLabel;
@@ -39,14 +35,8 @@ public class Login_Page extends Application {
     private Button loginButton;
     private Button createAccountButton;
 
-    public static void create(){
-        launch();
-    }
-
-    public void start(Stage primaryStage) throws Exception{
-
-        layout(primaryStage);
-
+    public void create(){
+        layout(StageManager.getPrimaryStage());
     }
 
     public void setPostLoginPromptFailedLogin(){
@@ -63,12 +53,12 @@ public class Login_Page extends Application {
         EventHandler eventHandler = new Login_Page_EventHandler(this);
 
         // Decorate Window
-        primaryStage.setTitle("Welcome to Tawe-Lib");
-        primaryStage.getIcons().add(loadImage("/res/images/TL.png"));
+        primaryStage.setTitle("Tawe-Lib");
+        primaryStage.getIcons().add(JavaFXUtils.loadImage("/res/images/TL.png"));
         primaryStage.setResizable(false);
 
         // Row 1
-        taweLibIcon = new ImageView(loadImage("/res/images/TL.png"));
+        taweLibIcon = new ImageView(JavaFXUtils.loadImage("/res/images/TL.png"));
         taweLibIcon.setPreserveRatio(true);
         taweLibIcon.setFitWidth(50);
         taweLibIcon.setFitHeight(50);
@@ -120,15 +110,17 @@ public class Login_Page extends Application {
                 postLoginPrompt
         );
 
-        Scene scene = new Scene(layout, WIDTH, HEIGHT);
-        primaryStage.setScene(scene);
+        scene = new Scene(layout, WIDTH, HEIGHT);
+        changeScene();
         primaryStage.show();
 
     }
 
-    private Image loadImage(String path){
-        return new Image(getClass().getResourceAsStream(path));
+    public void changeScene(){
+        StageManager.getPrimaryStage().setScene(scene);
     }
+
+
 
     public Button getLoginButton() {
         return loginButton;
